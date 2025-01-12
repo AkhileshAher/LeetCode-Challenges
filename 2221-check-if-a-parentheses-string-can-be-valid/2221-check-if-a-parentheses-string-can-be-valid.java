@@ -1,0 +1,43 @@
+public class Solution {
+    public boolean canBeValid(String s, String locked) {
+        int n = s.length();
+        if (n % 2 != 0) {
+            return false;
+        }
+
+        int openCount = 0, flexibleCount = 0;
+        for (int i = 0; i < n; i++) {
+            if (locked.charAt(i) == '1') {
+                if (s.charAt(i) == '(') {
+                    openCount++;
+                } else {
+                    openCount--;
+                }
+            } else {
+                flexibleCount++;
+            }
+            if (openCount + flexibleCount < 0) {
+                return false;
+            }
+        }
+
+        openCount = 0;
+        flexibleCount = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            if (locked.charAt(i) == '1') {
+                if (s.charAt(i) == ')') {
+                    openCount++;
+                } else {
+                    openCount--;
+                }
+            } else {
+                flexibleCount++;
+            }
+            if (openCount + flexibleCount < 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
